@@ -3,7 +3,7 @@
 
 import socket
 from cryptography.fernet import Fernet
-
+import sys
 
 #### Appelé sans argument, le serveur n'accepte que les datas cryptés
 #### Si un argument lui est passé (*) , il n'accepte que les datas claires
@@ -24,6 +24,7 @@ connexion_principale.listen(5)
 print("Presse Papier Partagé à l'écoute sur le port {}".format(port))
 
 
+
 ## Crypté
 if aleph == False:
     key = input("Entrez la clée de décryptage: \n")
@@ -36,9 +37,8 @@ if aleph == False:
         message_claire = cipher_suite.decrypt(msg_recu)
         print(message_claire.decode())
     print("Fermeture de la connexion")
-
-connexion_avec_client.close()
-#connexion_principale.close()
+    connexion_avec_client.close()
+    #connexion_principale.close()
 
 
 ## Claire
@@ -50,5 +50,4 @@ else:
         message_claire = cipher_suite.decrypt(msg_recu)
         print(message_claire.decode())
     print("Fermeture de la connexion")
-
-connexion_avec_client.close()
+    connexion_avec_client.close()
