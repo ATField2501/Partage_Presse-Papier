@@ -9,7 +9,7 @@ import time
 import sys
 
 
-from config import *
+from Caglioconfig import *
 from CaglioPPPmodule import *
 
 aleph = False
@@ -39,15 +39,18 @@ except Exception as e:
 
 ## Claire
 if aleph == True:
+    tampon1=""
     while 1:
+        presse_papier2 = tampon1
         presse_papier= os.popen('xclip -o 2>/dev/null' ).readlines()
-        presse_papier2=""
-        for e in presse_papier:
-            presse_papier2 += e
-        if len(presse_papier2) != 0:
-            b = bytes(presse_papier2, 'utf-8')
+        if ' '.join(presse_papier) == presse_papier2:
+            pass
+        else:   
+            b = bytes(' '.join(presse_papier), 'utf-8')
             # On envoie le message
             connexion_avec_serveur.send(b)
+            print("{} [OK]".format(str(b)))    
+        tampon1 = ' '.join(presse_papier)
         time.sleep(0.6) 
 
     connexion_avec_serveur.close()
